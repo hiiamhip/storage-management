@@ -18,20 +18,25 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-});
-
 type FormType = "sign-in" | "sign-up";
+
+const authFormSchema = (formType: FormType) => {
+  return z.object({
+    email: z.string().email(),
+    fullName: formType === "sign-up" ? z.string().min(2).max(50) : z.null(),
+  });
+};
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      fullName: "",
+      email: "",
     },
   });
 
@@ -49,7 +54,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           {type === "sign-up" && (
             <FormField
               control={form.control}
-              name="username"
+              name="fullName"
               render={({ field }) => (
                 <FormItem>
                   <div className="shad-form-item">
