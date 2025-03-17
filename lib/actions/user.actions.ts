@@ -1,3 +1,5 @@
+"use server";
+
 import { ID, Query } from "node-appwrite";
 import { createAdminClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
@@ -13,9 +15,7 @@ const getUserByEmail = async (email: string) => {
 
   return result.total > 0 ? result.documents[0] : null;
 };
-
 const handleError = (error: unknown, message: string) => {
-  // Handle error
   console.log(error, message);
   throw error;
 };
@@ -38,7 +38,6 @@ export const createAccount = async ({
   fullName: string;
   email: string;
 }) => {
-  "use server";
   const existingUser = await getUserByEmail(email);
   const accountId = await sendEmailOTP({ email });
   if (!accountId) throw new Error("Failed to send an OTP");
