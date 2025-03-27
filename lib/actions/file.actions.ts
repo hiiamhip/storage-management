@@ -41,8 +41,6 @@ export const uploadFile = async ({
       bucketFileId: bucketFile.$id,
     };
 
-    console.log(fileDocument);
-
     const newFile = await databases
       .createDocument(
         appwriteConfig.databaseId,
