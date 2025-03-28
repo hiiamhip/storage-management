@@ -16,3 +16,10 @@ declare interface SearchParamProps {
   params?: Promise<SegmentParams>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
+
+declare interface RenameFileProps {
+  fileId: string;
+  name: string;
+  extension: string;
+  path: string;
+}
