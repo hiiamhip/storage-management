@@ -25,7 +25,6 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
-      console.log(acceptedFiles);
       setFiles(acceptedFiles);
 
       const uploadPromises = acceptedFiles.map(async (file) => {
